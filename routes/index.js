@@ -1,32 +1,26 @@
-import { Router } from 'express';
+const express = require('express');
 
-const router = Router();
+const router = express.Router();
 
-import { getStatus, getStats } from '../controllers/AppController';
-import { getConnect, getDisconnect } from '../controllers/AuthController';
-import { postNew, getMe } from '../controllers/UsersController';
-import {
-  postUpload,
-  getShow,
-  getIndex,
-  putPublish,
-  putUnpublish,
-  getFile,
-} from '../controllers/FilesController';
+const AppController = require('../controllers/AppController');
+const AuthController = require('../controllers/AuthController');
+const UsersController = require('../controllers/UsersController');
+const FilesController = require('../controllers/FilesController');
 
 // Api end points
-router.get('/status', getStatus);
-router.get('/stats', getStats);
+router.get('/status', AppController.getStatus);
+router.get('/stats', AppController.getStats);
 
-router.post('/users', postNew);
-router.get('/connect', getConnect);
-router.get('/disconnect', getDisconnect);
-router.get('/users/me', getMe);
+router.post('/users', UsersController.postNew);
+router.get('/connect', AuthController.getConnect);
+router.get('/disconnect', AuthController.getDisconnect);
+router.get('/users/me', UsersController.getMe);
 
-router.post('/files', postUpload);
-router.get('/files/:id', getShow);
-router.get('/files', getIndex);
-router.put('/files/:id/publish', putPublish);
-router.put('/files/:id/unpublish', putUnpublish);
-router.get('/files/:id/data', getFile);
-export default router;
+router.post('/files', FilesController.postUpload);
+router.get('/files/:id', FilesController.getShow);
+router.get('/files', FilesController.getIndex);
+router.put('/files/:id/publish', FilesController.putPublish);
+router.put('/files/:id/unpublish', FilesController.putUnpublish);
+router.get('/files/:id/data', FilesController.getFile);
+
+module.exports = router;
