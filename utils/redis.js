@@ -1,11 +1,9 @@
-const redis = require('redis');
-const { promisify } = require('util');
+import { createClient } from 'redis';
+import { promisify } from 'util';
 
 class RedisClient {
   constructor() {
-    this.client = redis
-      .createClient()
-      .on('error', (error) => console.log(error));
+    this.client = createClient().on('error', (error) => console.log(error));
   }
 
   isAlive() {
@@ -33,4 +31,4 @@ class RedisClient {
 }
 
 const redisClient = new RedisClient();
-module.exports = redisClient;
+export default redisClient;
